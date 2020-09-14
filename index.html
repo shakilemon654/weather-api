@@ -50,6 +50,7 @@
     }
 
     const updateWeatherData = data => {
+        document.getElementById("icon").setAttribute("src", `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png`)
         document.getElementById("update-city-name").innerHTML = data.city.name;
         document.getElementById("update-temperature").innerText = data.list[0].main.temp;
         document.getElementById("update-weather-status").innerText = data.list[0].weather[0].main;
