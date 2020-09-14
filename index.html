@@ -19,7 +19,7 @@
     <div class="container">
         <form class="col-md-6 m-auto py-5">
             <div class="input-group mb-3">
-                <input id="city" type="text" class="form-control" placeholder="Enter a location for Weather ...">
+                <input id="input-city" type="text" class="form-control" placeholder="Enter a location for Weather ...">
                 <div class="input-group-append">
                     <button id="search_button" type="button" class="btn btn-danger">Search</button>
                 </div>
@@ -27,11 +27,36 @@
         </form>
         <div class="weather-status text-white text-center">
             <img id="icon" src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
-            <h1 id="show_city">Dhaka</h1>
-            <h3><span id="show_temperature">38.06</span>&deg;C</h3>
-            <h1 id="weather_status" class="lead">Clouds</h1>
+            <h1 id="update-city-name">Tallinn</h1>
+            <h3><span id="update-temperature">38.06</span>&deg;C</h3>
+            <h1 id="update-weather-status" class="lead">Clouds</h1>
         </div>
     </div>   
 </body>
+
+<script>
+    document.getElementById("search_button").addEventListener("click", () => {
+        const city = document.getElementById("input-city").value;
+        getWeatherData(city);
+    })
+
+    const getWeatherData = city => {
+        const apiBase = "http://api.openweathermap.org/data/2.5/forecast";
+        const apiKey = "1468198d3a968545675628650807cc69";
+        const url = `${apiBase}?q=${city}&units=metric&APPID=${apiKey}`;
+        fetch(url)
+        .then(response => response.json())
+        .then(data => updateWeatherData(data))   
+    }
+
+    const updateWeatherData = data => {
+        document.getElementById("update-city-name").innerHTML = data.city.name;
+        document.getElementById("update-temperature").innerText = data.list[0].main.temp;
+        document.getElementById("update-weather-status").innerText = data.list[0].weather[0].main;
+        document.getElementById("input-city").value = "";
+    }
+
+    getWeatherData("Tallinn");
+</script>
 
 </html>
