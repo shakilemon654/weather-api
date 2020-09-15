@@ -20,4 +20,4 @@
         document.getElementById("input-city").value = "";
     }
 
-    getWeatherData("Tallinn");
+    getWeatherData("Berlin");
